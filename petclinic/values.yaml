@@ -1,0 +1,16 @@
+replicaCount: 1
+
+image:
+  repository: makjavaprogrammer/gs-spring-boot-docker
+  tag: latest
+  pullPolicy: IfNotPresent
+
+fullname: "kuchbhidedo"
+
+bb: web
+
+service:
+  type: NodePort
+  port: 8080
+  targetPort: 8080
+  nodePort: 32161

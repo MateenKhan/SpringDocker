@@ -1,3 +1,32 @@
 ./mvnw install dockerfile:build
 docker run -p 8080:8080 -t --detach --name spring-docker makjavaprogrammer/gs-spring-boot-docker
 docker container rm --force spring-docker
+kubectl apply -f kubernetes.yaml 
+open browser with minikube ip
+http://192.168.99.100:32161/greeting?name=User
+kubectl delete deployment.apps/spring-docker service/spring-docker-service
+helm lint ./helm
+helm template ./helm
+helm install --name helm ./helm
+export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services helm)
+  export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
+  echo http://$NODE_IP:$NODE_PORT
+
+
+open browswe tihe minikube ip
+http://192.168.99.100:32161/greeting?name=asdf
+
+helm delete --purge helm
+
+helm ls --all
+helm upgrade hello-world ./hello-world
+helm rollback hello-world 1
+helm delete --purge helm
+helm package ./hello-world
+helm repo index my-repo/ --url https://<username>.github.io/my-repo
+helm repo add my-repo https://my-pages.github.io/my-repo
+helm install my-repo/hello-world --name=hello-world
+export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=first-app,app.kubernetes.io/instance=first-app" -o jsonpath="{.items[0].metadata.name}")
+echo "Visit http://127.0.0.1:8080 to use your application"
+kubectl port-forward $POD_NAME 8080:80
+
